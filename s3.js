@@ -11,15 +11,18 @@ const s3Client = new S3Client({
 
 const fileStream = fs.createReadStream('C:\\Users\\manny\\Documents\\devFolder\\BL_Back-End\\testFile.mp3');
 
-const uploadObjectParams = {
-  Bucket: process.env.BUCKET,
-  Key: 'testFile.mp3',
-  Body: fileStream
+const uploadObjectParams = (fileKey) => {
+  return {
+    Bucket: process.env.BUCKET,
+    Key: fileKey,
+    Body: fileStream
+  }
 };
 
-export const uploadObject = async () => {
+export const uploadObject = async (file) => {
   try {
-    const command = new PutObjectCommand(uploadObjectParams);
+    console.log(file)
+    const command = new PutObjectCommand(uploadObjectParams());
     const response = await s3Client.send(command);
     console.log('Object uploaded successfully:', response);
   } catch (error) {
