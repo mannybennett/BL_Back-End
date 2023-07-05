@@ -22,7 +22,19 @@ const uploadFile = (req, res) => {
   });
 };
 
+const deleteFile = (req, res) => {
+  const { id } = req.params;
+  const sql = "DELETE FROM audio_files WHERE id = ?";
+  const values = [id];
+  pool.query(sql, values, (err, results) => {
+    if (err) return handleSQLError(res, err);
+    return res.json({ message: `Deleted ${results.affectedRows} file` });
+  });
+};
+
+
 module.exports = {
   getAllFiles,
-  uploadFile
+  uploadFile,
+  deleteFile
 }
