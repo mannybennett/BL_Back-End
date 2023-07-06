@@ -21,12 +21,12 @@ const getUserById = (req, res) => {
 }
 
 const createUser = (req, res) => {
-  let sql = "INSERT INTO users (??, ??) VALUES (?, ?)"
-  sql = mysql.format(sql, [...Object.keys(req.body), ...Object.values(req.body)])
-
-  pool.query(sql, (err, results) => {
+  const { user_name, profile_picture } = req.body;
+  let sql = "INSERT INTO users (user_name, profile_picture) VALUES (?, ?)"
+  const values = [user_name, profile_picture];
+  pool.query(sql, values, (err, results) => {
     if (err) return handleSQLError(res, err)
-    return res.json({ newId: results.insertId });
+    return res.json(results);
   })
 }
 

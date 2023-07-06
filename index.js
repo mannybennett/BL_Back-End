@@ -6,7 +6,7 @@ const audioFilesRouter = require('./routers/audiofiles')
 
 app.use(express.json());
 
-app.use('/users', usersRouter)
+app.use('/api/users', usersRouter)
 app.use('/api/audioFiles', audioFilesRouter)
 
 app.listen(port, () => console.log('Listening on:', port))
