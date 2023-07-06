@@ -13,10 +13,18 @@ const getAllUsers = (req, res) => {
 const getUserById = (req, res) => {
   let sql = "SELECT * FROM users WHERE id = ?"
   sql = mysql.format(sql, [req.params.id])
-
   pool.query(sql, (err, rows) => {
     if (err) return handleSQLError(res, err)
     return res.json(rows);
+  })
+}
+
+const updateUser = (req, res) => {
+  let sql = "UPDATE users SET user_name = ?, profile_picture = ? WHERE id = ?"
+  let values = []
+  pool.query(sql, values, (err, results) => {
+    if (err) return handleSQLError(res, err)
+    return res.status(204).json(results);
   })
 }
 
@@ -33,5 +41,6 @@ const createUser = (req, res) => {
 module.exports = {
   getAllUsers,
   getUserById,
+  updateUser,
   createUser
 }
