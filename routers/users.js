@@ -4,7 +4,7 @@ const router = express.Router()
 
 router.get('/', usersController.getAllUsers)
 
-router.get('/:id', usersController.getUserById)
+router.get('/:email', usersController.getUserByEmail)
 
 router.put('/:id', usersController.updateUser)
 

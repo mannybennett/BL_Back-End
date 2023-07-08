@@ -10,10 +10,11 @@ const getAllUsers = (req, res) => {
   })
 }
 
-const getUserById = (req, res) => {
-  let sql = "SELECT * FROM users WHERE id = ?"
-  sql = mysql.format(sql, [req.params.id])
-  pool.query(sql, (err, rows) => {
+const getUserByEmail = (req, res) => {
+  const { email } = req.params
+  let sql = "SELECT * FROM users WHERE email = ?"
+  const values = [email]
+  pool.query(sql, values, (err, rows) => {
     if (err) return handleSQLError(res, err)
     return res.json(rows);
   })
@@ -29,9 +30,9 @@ const updateUser = (req, res) => {
 }
 
 const createUser = (req, res) => {
-  const { user_name, profile_picture } = req.body;
-  let sql = "INSERT INTO users (user_name, profile_picture) VALUES (?, ?)"
-  const values = [user_name, profile_picture];
+  const { user_name, email, profile_picture } = req.body;
+  let sql = "INSERT INTO users (user_name, email, profile_picture) VALUES (?, ?, ?)"
+  const values = [user_name, email, profile_picture];
   pool.query(sql, values, (err, results) => {
     if (err) return handleSQLError(res, err)
     return res.json(results);
@@ -40,7 +41,7 @@ const createUser = (req, res) => {
 
 module.exports = {
   getAllUsers,
-  getUserById,
+  getUserByEmail,
   updateUser,
   createUser
 }
