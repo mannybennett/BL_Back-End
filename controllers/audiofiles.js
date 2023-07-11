@@ -11,13 +11,11 @@ const getAllFiles = (req, res) => {
 }
 
 const uploadFile = (req, res) => {
-  const { file_name, user_id } = req.body;
-  const sql = "INSERT INTO audio_files (file_name, user_id) VALUES (?, ?)";
-  const values = [file_name, user_id];
+  const { file_name, user_id, title, user_name} = req.body;
+  const sql = "INSERT INTO audio_files (file_name, user_id, title, user_name) VALUES (?, ?, ?, ?)";
+  const values = [file_name, user_id, title, user_name];
   pool.query(sql, values, (err, results) => {
-    if (err) {
-      return handleSQLError(res, err);
-    }
+    if (err) return handleSQLError(res, err)
     return res.json(results);
   });
 };
