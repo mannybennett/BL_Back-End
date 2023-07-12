@@ -11,9 +11,9 @@ const getAllFiles = (req, res) => {
 }
 
 const uploadFile = (req, res) => {
-  const { file_name, user_id, title, user_name} = req.body;
-  const sql = "INSERT INTO audio_files (file_name, user_id, title, user_name) VALUES (?, ?, ?, ?)";
-  const values = [file_name, user_id, title, user_name];
+  const { file_name, user_id, title, user_name, image} = req.body;
+  const sql = "INSERT INTO audio_files (file_name, user_id, title, user_name, image) VALUES (?, ?, ?, ?, ?)";
+  const values = [file_name, user_id, title, user_name, image];
   pool.query(sql, values, (err, results) => {
     if (err) return handleSQLError(res, err)
     return res.json(results);
