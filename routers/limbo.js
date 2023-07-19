@@ -10,4 +10,6 @@ router.post('/', limboController.postVote)
 
 router.post('/comments', limboController.postComment)
 
+router.delete('/comments/:id', limboController.deleteComment)
+
 module.exports = router

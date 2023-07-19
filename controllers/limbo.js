@@ -38,9 +38,20 @@ const postComment = (req, res) => {
   });
 };
 
+const deleteComment = (req, res) => {
+  const { id } = req.params;
+  const sql = "DELETE FROM comments WHERE id = ?";
+  const values = [id];
+  pool.query(sql, values, (err, results) => {
+    if (err) return handleSQLError(res, err);
+    return res.json({ message: `Deleted: ${results.affectedRows}` });
+  });
+};
+
 module.exports = {
   getAllVotes,
   getAllComments,
   postVote,
-  postComment
+  postComment,
+  deleteComment
 }
