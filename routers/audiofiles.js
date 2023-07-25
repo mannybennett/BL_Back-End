@@ -6,6 +6,8 @@ router.get('/', audioFilesController.getAllFiles)
 
 router.post('/upload', audioFilesController.uploadFile)
 
+router.put('/:id/playCount', audioFilesController.playCount)
+
 router.delete('/:id', audioFilesController.deleteFile)
 
 module.exports = router

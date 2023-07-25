@@ -30,9 +30,20 @@ const deleteFile = (req, res) => {
   });
 };
 
+const playCount = (req, res) => {
+  const { id } = req.params;
+  const sql = "UPDATE audio_files SET plays = COALESCE(plays, 0) + 1 WHERE id = ?";
+  const values = [id];
+  pool.query(sql, values, (err, results) => {
+    if (err) return handleSQLError(res, err);
+    return res.json(results);
+  });
+};
+
 
 module.exports = {
   getAllFiles,
   uploadFile,
-  deleteFile
+  deleteFile,
+  playCount
 }
